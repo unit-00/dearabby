@@ -4,7 +4,7 @@ import time
 
 class Scraper:
     def __init__(self, archives_coll, articles_coll, year_start=1991, year_end=2021):
-#         Expect two mongo collection
+#         Expect two mongo collections, one for archives and one for articles
         self.archives_coll = archives_coll
         self.articles_coll = articles_coll
         self.year_start = year_start
