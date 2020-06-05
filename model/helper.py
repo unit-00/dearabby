@@ -1,7 +1,11 @@
+import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, silhouette_samples
 import itertools
 
+from sklearn.decomposition import NMF
+
+import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 def make_silhouette_plot(axs, X, n_clusters):
@@ -95,3 +99,19 @@ def make_silhouette_plot(axs, X, n_clusters):
                  fontsize=14, fontweight='bold')
 
     return silhouette_avg
+
+def print_top_words(model, feature_names, n_top_words):
+    for topic_idx, topic in enumerate(model.components_):
+        message = "Topic #%d: " % topic_idx
+        message += " ".join([feature_names[i]
+                             for i in topic.argsort()[:-n_top_words - 1:-1]])
+        print(message, end='\n')
+        print()
+    print()
+    
+def fit_nmf(r, x):
+    nmf = NMF(n_components=r, random_state=42)
+    nmf.fit(x)
+    W = nmf.transform(x)
+    H = nmf.components_
+    return nmf.reconstruction_err_
