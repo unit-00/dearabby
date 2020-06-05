@@ -86,3 +86,65 @@ class Scraper:
                          'html': response.content})
 
         return response.status_code, response.content
+    
+    def clean_articles(self, cleaned_coll):
+        for article in self.articles_coll.find({}, {'_id': 0, 'url': 1, 'html': 1}):
+            
+            url, html = article.keys()
+
+            soup = BeautifulSoup(article[html])
+
+            qa = self.extract_qa(soup)
+
+            cleaned_coll.insert_one({'url': url,
+                                     'extracted_qa': qa})
+            
+    def extract_qa(self, soup):
+        articles = soup.select('article.item-section')
+
+        year, month, day = soup.select('time')[0]['datetime'].split('-')
+        titles = soup.select('h1.item-title')
+        qa = []
+
+        for i, a in enumerate(articles):
+            q_idx = 0
+            a_idx = 0
+
+            title = titles[i] if i < len(titles) else titles[0]
+
+            question = []
+            answer = []
+
+            for j, p in enumerate(a.select('p')):
+                if p.text.startswith('DEAR'):
+                    if p.text.startswith('DEAR ABBY:'):
+                        q_idx = j
+                        is_q = True
+                        question.append(p.text)
+
+                    else:
+                        a_idx = j
+                        is_q = False
+                        answer.append(p.text)
+
+                elif is_q:
+                    question.append(p.text)
+
+                else:
+                    answer.append(p.text)
+
+            cat = soup.select('article.item-section span')
+
+            qa.append({'year': year,
+                       'month': month,
+                       'day': day,
+                       'title': title.text.strip(),
+                       'question': ' '.join(question),
+                       'answer': ' '.join(answer),
+                       'letterid': i,
+                       'categories': cat[i].text if i < len(cat) else []
+                      })
+
+            return qa
+        
+            
