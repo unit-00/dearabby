@@ -18,7 +18,7 @@ cleaned_articles_coll = db.cleaned_articles
 scraper = Scraper(archives_coll, articles_coll, year_start=1991, year_end=2021)
 
 # Clean and extract questions and answers
-scraper.clean_articles(cleaned_articles_coll)
+scraper.extract_qa(cleaned_articles_coll)
 
 results = []
 for articles in cleaned_articles_coll.find({}, {'_id': 0, 'extracted_qa': 1}):

@@ -4,7 +4,7 @@ import time
 
 class Scraper:
     def __init__(self, archives_coll, articles_coll, year_start=1991, year_end=2021):
-#         Expect two mongo collections, one for archives and one for articles
+        # Expect two mongo collections, one for archives and one for articles
         self.archives_coll = archives_coll
         self.articles_coll = articles_coll
         self.year_start = year_start
@@ -12,7 +12,7 @@ class Scraper:
         self.base_url = 'https://www.uexpress.com/dearabby'
     
     def scrape(self):
-#         Scrape and insert into warehouse, return lists of archives and status code
+        # Scrape and insert into warehouse, return lists of archives and status code
         base_url = self.base_url
         archive_status = []
         article_status = []
@@ -31,13 +31,13 @@ class Scraper:
 
                 article_status.append({url: status_codes})
 
-            if (i - year_start) == 5:
+            if (i - self.year_start) == 5:
                 print('sleep 30 in archive')
                 print(url)
                 print()
                 time.sleep(30)
 
-            if (i - year_start) == 10:
+            if (i - self.year_start) == 10:
                 print('sleep 60 in archive')
                 print(url)
                 print()
@@ -47,6 +47,8 @@ class Scraper:
         return archive_status, article_status
 
     def scrape_articles(self, coll, archive):
+        # helper function for extracting articles from archives
+        # return status code for debug
         soup = BeautifulSoup(archive, 'lxml')
         base_url = 'https://www.uexpress.com'
 
@@ -71,9 +73,9 @@ class Scraper:
 
         return status
 
-
-
     def scrape_insert(self, coll, url):
+        # Extract content for insertion into warehouse
+
         response = requests.get(url)
 
         print('sleep 2 seconds')
@@ -87,19 +89,21 @@ class Scraper:
 
         return response.status_code, response.content
     
-    def clean_articles(self, cleaned_coll):
+    def extract_qa(self, cleaned_coll):
+        # Extract question and answer from each article
         for article in self.articles_coll.find({}, {'_id': 0, 'url': 1, 'html': 1}):
             
             url, html = article.keys()
 
             soup = BeautifulSoup(article[html])
 
-            qa = self.extract_qa(soup)
+            qa = self._extract_qa(soup)
 
             cleaned_coll.insert_one({'url': url,
                                      'extracted_qa': qa})
             
-    def extract_qa(self, soup):
+    def _extract_qa(self, soup):
+        # helper function
         articles = soup.select('article.item-section')
 
         year, month, day = soup.select('time')[0]['datetime'].split('-')
@@ -107,23 +111,19 @@ class Scraper:
         qa = []
 
         for i, a in enumerate(articles):
-            q_idx = 0
-            a_idx = 0
 
             title = titles[i] if i < len(titles) else titles[0]
 
             question = []
             answer = []
 
-            for j, p in enumerate(a.select('p')):
+            for p in a.select('p'):
                 if p.text.startswith('DEAR'):
                     if p.text.startswith('DEAR ABBY:'):
-                        q_idx = j
                         is_q = True
                         question.append(p.text)
 
                     else:
-                        a_idx = j
                         is_q = False
                         answer.append(p.text)
 
