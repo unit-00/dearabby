@@ -22,6 +22,16 @@ NLP Analysis of Dear Abby column
 
 People write in to hear advice from Abby regarding issues they're having in life.
 
+In terms of the directory structure of the project
+- data 
+    - script to collect the data and the data itself
+- image
+    - visualization for the readme
+- model 
+    - script to reproduce the result 
+    - notebooks for model visualization
+    - model used for this project
+
 ## Motivation
 People are asking for advice on a range of troubles, I wanted to see what are the topics are people asking for advice on.
 
@@ -33,13 +43,11 @@ From initial collection, the source files were then thrown into a MongoDB wareho
 Please take a look at `collect_data.py` to see how the data was collected. The script was built with `requests`, `BeautifulSoup4`, `pandas`, and `MongoDB`.
 
 ### Understanding
-Each day consists of text in a question and answer format, having 1 to 3 questions a day. Resulting to about ~21000 questions.
-
-Each text written in English without emojis or internet slang.
+Each day consists of text in a question and answer format, having 1 to 3 questions a day. Resulting to about ~21000 questions. Each piece of text written in English without emojis or internet slang.
 
 In addition starting from 2012, multiple categories were assigned to each question, and that was collected as well. However due to a lack of data prior to 2012, this resulted in about 68% of the feature missing.
 
-I made a decision to use the 32% of the categorized data to model, to verify if the topics generated seemed to cluster well
+I made a decision to use the 32% of the categorized data to model, to verify if the topics generated seemed to cluster well. 
 
 During exploration, I have found that majority of the text have a distribution of about normal centered around 1000 words, with a bit of a right tail. Shown in the graph below.
 
@@ -243,6 +251,14 @@ We see here each topic and their relevant keywords.
 ![lda vis](/image/ldavis.png)
 
 The [html applet](https://htmlpreview.github.io/?https://github.com/unit-00/dearabby/blob/master/model/lda.html) is here to be played with.
+
+## Evaluation
+For a baseline evaluation, since this is an unsupervised learning project we do not have an objective metrics.  
+
+Based on the average length of the categories, a human would guess there are 2 or 3 large categories.
+
+Through visualization and interpretation, we see the models being able to categorize similarly with more details such as the particular topics and the keywords associated with them.
+
 
 ## Application
 Through topic modelling, we are able to extract issues that people are writing in about. In a business context, we can use this to detect people's concerns. With a time component, we might be able to see how concerns evolve over time. 
