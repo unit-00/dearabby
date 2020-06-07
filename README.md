@@ -2,20 +2,20 @@
 NLP Analysis of Dear Abby column
 
 ## Table of Contents
-- Background
-- Motivation
-- Data
-    - Understanding
-    - Preparation
-- Unsupervised Modelling
-    - KMeans Clustering
-    - Non-Negative Matrix Factorization (NMF)
-    - Latent Dirichlet Allocation (LDA)
-- Application
-- Conclusion
-- Follow Up
-- Credit
-- Reproduce Model
+- [Background](#background)
+- [Motivation](#motivation)
+- [Data](#data)
+    - [Understanding](#understanding)
+    - [Preparation](#preparation)
+- [Unsupervised Modelling](#unsupervised-modelling)
+    - [KMeans](#kmeans)
+    - [NMF](#nmf)
+    - [LDA](#lda)
+- [Application](#application)
+- [Conclusion](#conclusion)
+- [Follow Up](#follow-up)
+- [Credit](#credit)
+- [Reproduce Model](#reproduce-model)
 
 ## Background
 [Dear Abby](https://en.wikipedia.org/wiki/Dear_Abby) is an advice column founded in 1956 by Pauline Phillips under the pen name "Abigal Van Buren" where now her daughter carry her mantle. 
@@ -85,7 +85,7 @@ Since it peaked at 3 clusters, the topic modelling was done with kmeans of n = 3
 
 With the nice slope of the three clusters in the silhouette plot, we see this reflecting in the clustered data where the clusters are nicely divded.
 
-For the full result, please check out the [eda](/model/eda.py) notebook.
+For the full result, please check out the [eda](/model/eda.ipynb) notebook.
 
 Taking a closer look at the words being used for each clusters. 
 
@@ -242,7 +242,7 @@ We see here each topic and their relevant keywords.
 
 ![lda vis](/image/ldavis.png)
 
-The [html applet]() is here to be played with.
+The [html applet](https://htmlpreview.github.io/?https://github.com/unit-00/dearabby/blob/master/model/lda.html) is here to be played with.
 
 ## Application
 Through topic modelling, we are able to extract issues that people are writing in about. In a business context, we can use this to detect people's concerns. With a time component, we might be able to see how concerns evolve over time. 
