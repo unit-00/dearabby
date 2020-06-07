@@ -279,3 +279,10 @@ If you would like to scrape the data, be sure to set up a mongo environment. I u
 
 `docker run --name mongoserver -p 27017:27017 -d mongo`
 
+After starting the mongo server, you can run `python data/collect_data.py` to scrape the data and have it inserted into your mongo server.
+
+However I have included the data I have collected myself inside the data directory as well.
+
+In which case, you can run `python model/run_models.py` and have it print out the results of the three models. 
+
+If you would like to see the visualizations, I have included the notebooks as well.

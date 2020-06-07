@@ -1,9 +1,11 @@
 import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, silhouette_samples
 import itertools
 
 from sklearn.decomposition import NMF
+from sklearn.preprocessing import MultiLabelBinarizer
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -115,3 +117,26 @@ def fit_nmf(r, x):
     W = nmf.transform(x)
     H = nmf.components_
     return nmf.reconstruction_err_
+
+def print_top_categories(labels, n):
+    mlb = MultiLabelBinarizer()
+
+    for i in range(n):
+        pred = labels.loc[labels[0] == i, 'categories'].fillna('list()').apply(eval)
+
+        res = pd.DataFrame(mlb.fit_transform(pred),
+                           columns=mlb.classes_,
+                           index=pred.index)
+
+        print(f'Topic {i}:')
+        print(f'{res.sum(axis=0).sort_values(ascending=False)[:3]}')
+        print()
+        
+def print_centroid_top_words(terms, original_space_centroids, n):
+    order_centroids = original_space_centroids.argsort()[:, ::-1]
+    
+    for i in range(n):
+        print("Cluster %d:" % i, end='')
+        for ind in order_centroids[i, :20]:
+            print(' %s' % terms[ind], end='')
+        print('\n')
