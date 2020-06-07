@@ -264,8 +264,7 @@ Couple ideas I have regarding the next steps are
 - Autolabel each articles
 
 ## Credit
-- Text mined belong to Dear Abby  
-- Tools used such as pyLDAvis and sklearn
+- Text mined belong to Dear Abby 
 - Thank you Tom for introducing me to pyLDAvis
 
 ## Reproduce model
