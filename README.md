@@ -72,7 +72,7 @@ The preprocessing steps
 
 Each text then had features extracted via both document frequency and term frequency - inverse document frequency (tfidf) methods capping at 2000 features.
 
-Because of the high dimension of this feature matrix, I then had do dimension reduction with `PCA` before to mitigate curse of dimensionality.
+Because of the high dimension of this feature matrix, I had to reduce dimensions with `PCA` to mitigate curse of dimensionality for certain algorithms.
 
 ## Unsupervised Modelling
 I used three algorithms to do topic modelling
