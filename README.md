@@ -281,7 +281,8 @@ Couple ideas I have regarding the next steps are
 
 ## Credit
 - Text mined belong to Dear Abby 
-- Thank you Tom for introducing me to pyLDAvis
+- Thank you g119 for the memories
+- And Tom for introducing me to pyLDAvis
 
 ## Reproduce model
 I have added the conda environment for the tools used and the data collected. 
