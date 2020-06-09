@@ -20,7 +20,7 @@ Web app can be found at [Dear Abby](https://dearabby-app.herokuapp.com/)
 - [Reproduce Model](#reproduce-model)
 
 ## Background
-[Dear Abby](https://en.wikipedia.org/wiki/Dear_Abby) is an advice column founded in 1956 by Pauline Phillips under the pen name "Abigal Van Buren" where now her daughter carry her mantle. 
+[Dear Abby](https://en.wikipedia.org/wiki/Dear_Abby) is an advice column founded in 1956 by Pauline Phillips under the pen name "Abigail Van Buren" where now her daughter carry her mantle. 
 
 People write in to hear advice from Abby regarding issues they're having in life.
 
