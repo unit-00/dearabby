@@ -1,7 +1,9 @@
 # Dear Abby
 NLP Analysis of Dear Abby column  
 
-Web app can be found at [Dear Abby](https://dearabby-app.herokuapp.com/)
+Web app can be found on [Heroku](https://dearabby-app.herokuapp.com/).
+
+Slideshow can be found at [Google Slides](https://docs.google.com/presentation/d/15aoj9qCmHQNCXVO2sTRbGVlVaEYyV1uKiotnn-9HJW0/edit?usp=sharing).
 
 ## Table of Contents
 - [Background](#background)
