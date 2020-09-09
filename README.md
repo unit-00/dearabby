@@ -267,8 +267,6 @@ Through visualization and interpretation, we see the models being able to catego
 ## Application
 Through topic modelling, we are able to extract issues that people are writing in about. In a business context, we can use this to detect people's concerns. With a time component, we might be able to see how concerns evolve over time. 
 
-A more subtle issue I was able to deal with here is multiclass-multilabel. Each articles has multiple categories and by topic modelling we're able to group them for a cleaner classification purpose. As we do not have a clean metrics for multiclass-multilabel, to my knowledge. However this does also come with the conerns of drowning out more hidden issues people may write in.
-
 
 ## Conclusion
 - People are writing in about family, relationship, love, and etiquette issues.
